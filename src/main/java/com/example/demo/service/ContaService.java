@@ -7,9 +7,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.example.demo.dao.ContaDAO;
+import com.example.demo.dao.impl.ContaDAOImpl;
 import com.example.demo.model.Conta;
-import com.example.demo.repository.ContaRepository;
 import com.example.demo.service.impl.ContaServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,20 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 public class ContaService implements ContaServiceImpl{
 
 	@Autowired
-	private ContaRepository contaRepository;
-	
-	@Autowired
-	private ContaDAO contaDAO;
+	private ContaDAOImpl contaDAO;
 
 	@Override
 	public ResponseEntity<List<Conta>> listarTodas() {
-		List<Conta> contas = contaRepository.findAll();
+		List<Conta> contas = this.contaDAO.listarTodas();
 		return new ResponseEntity<List<Conta>>(contas , HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<Conta> pegarPorId(Long id) {
-		Conta conta = contaRepository.getOne(id);
+		Conta conta = this.contaDAO.pegarPorId(id);
 		if(conta == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -41,7 +37,7 @@ public class ContaService implements ContaServiceImpl{
 	@Override
 	public ResponseEntity<?> deletarPorId(Long id) {
 		try {
-			contaRepository.deleteById(id);
+			this.contaDAO.deletarPorId(id);
 		}catch(EmptyResultDataAccessException e) {
 			log.error(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,20 +47,16 @@ public class ContaService implements ContaServiceImpl{
 
 	@Override
 	public ResponseEntity<Conta> atualizar(Conta conta) {
-		conta.setTaxaDeJuros(calculoTaxaDeJuros.calcular());
-		Conta contaResponse = contaRepository.save(conta);
+		conta.setJuros();
+		Conta contaResponse = this.contaDAO.atualizar(conta);
 		return new ResponseEntity<Conta>(contaResponse, HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<Conta> salvar(Conta conta) {
-		conta.setTaxaDeJuros(calculoTaxaDeJuros.calcular());
-		Conta contaResponse = contaRepository.save(conta);
+		conta.setJuros();
+		Conta contaResponse = this.contaDAO.salvar(conta);
 		return new ResponseEntity<Conta>(contaResponse, HttpStatus.CREATED);
 	}
-
-	
-	
-	
 	
 }
