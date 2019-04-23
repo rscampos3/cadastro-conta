@@ -7,12 +7,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.example.demo.business.impl.CalculoTaxaDeJurosImpl;
+import com.example.demo.dao.ContaDAO;
 import com.example.demo.model.Conta;
 import com.example.demo.repository.ContaRepository;
 import com.example.demo.service.impl.ContaServiceImpl;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,7 +21,7 @@ public class ContaService implements ContaServiceImpl{
 	private ContaRepository contaRepository;
 	
 	@Autowired
-	private CalculoTaxaDeJurosImpl calculoTaxaDeJuros;
+	private ContaDAO contaDAO;
 
 	@Override
 	public ResponseEntity<List<Conta>> listarTodas() {

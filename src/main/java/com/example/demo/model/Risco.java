@@ -1,23 +1,18 @@
 package com.example.demo.model;
 
-import com.example.demo.business.CalculoTaxaDeJurosA;
-import com.example.demo.business.CalculoTaxaDeJurosB;
-import com.example.demo.business.CalculoTaxaDeJurosC;
-import com.example.demo.business.impl.CalculoTaxaDeJurosImpl;
-
 public enum Risco {
-A(new CalculoTaxaDeJurosA()),
-B(new CalculoTaxaDeJurosB()),
-C(new CalculoTaxaDeJurosC());
+A(new Double(0.0)),
+B(new Double(10.0)),
+C(new Double(20.0));
 
-private CalculoTaxaDeJurosImpl calculo;
+private Double juros;
 
-Risco (CalculoTaxaDeJurosImpl calculo){
-	this.calculo = calculo;
+Risco (Double juros){
+	this.juros = juros;
 }
 
-public CalculoTaxaDeJurosImpl getCalculo() {
-	return calculo;
+public Double getJuros() {
+	return this.juros;
 }
 
 

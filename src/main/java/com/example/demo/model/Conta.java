@@ -10,8 +10,10 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -33,10 +35,10 @@ public class Conta {
 	@NotNull(message="risco")
 	private Risco risco;
 	
-	@NotNull
+	@Setter(value=AccessLevel.PRIVATE)
 	private Double taxaDeJuros;
 
-	public double calculaJuros() {
-		return risco.getCalculo().calcular(this);
+	public void setJuros() {
+		this.taxaDeJuros = this.risco.getJuros();
 	}
 }
