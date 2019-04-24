@@ -3,13 +3,14 @@ package com.example.demo.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 
-import com.example.demo.dao.impl.ContaDAOImpl;
+import com.example.demo.dao.impl.IContaDAO;
 import com.example.demo.model.Conta;
 import com.example.demo.repository.ContaRepository;
 
-public class ContaDAO implements ContaDAOImpl{
+@Repository
+public class ContaDAO implements IContaDAO{
 	
 	@Autowired
 	private ContaRepository contaRepository;

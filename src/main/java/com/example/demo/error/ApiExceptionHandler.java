@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApiExceptionHandler {
 
-	private static final String NO_MESSAGE_AVAILABLE = "No message available";
+	private static final String NO_MESSAGE_AVAILABLE = "Nenhuma msg disponível";
 	private static final Logger LOG = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
 	private final MessageSource apiErrorMessageSource;
@@ -57,7 +57,7 @@ public class ApiExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse> handleGenericException(Exception exception, Locale locale){
-		LOG.error("Error not expected", exception);
+		LOG.error("Erro não esperado", exception);
 		final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 		final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError("error-1", locale));
 		return ResponseEntity.status(status).body(errorResponse);

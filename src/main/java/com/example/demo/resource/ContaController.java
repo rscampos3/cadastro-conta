@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Conta;
-import com.example.demo.service.impl.ContaServiceImpl;
+import com.example.demo.model.Risco;
+import com.example.demo.service.impl.IContaService;
 
 @RestController
 @RequestMapping("/contas")
 public class ContaController {
 	@Autowired
-	private ContaServiceImpl contaService;
+	private IContaService contaService;
 	
 	@GetMapping
 	public ResponseEntity<List<Conta>> pegarTudo(){
@@ -45,7 +46,12 @@ public class ContaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Conta> pegarPorId(@PathVariable Long id){
+	public ResponseEntity<Conta> pegarPorId(@PathVariable("id") Long id){
 		return this.contaService.pegarPorId(id);
+	}
+	
+	@GetMapping("/riscos")
+	public Risco[] listaDeRiscos(){
+		return Risco.values();
 	}
 }

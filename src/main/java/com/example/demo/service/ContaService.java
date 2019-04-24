@@ -6,18 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.impl.ContaDAOImpl;
+import com.example.demo.dao.impl.IContaDAO;
 import com.example.demo.model.Conta;
-import com.example.demo.service.impl.ContaServiceImpl;
+import com.example.demo.service.impl.IContaService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ContaService implements ContaServiceImpl{
+@Service
+public class ContaService implements IContaService{
 
 	@Autowired
-	private ContaDAOImpl contaDAO;
+	private IContaDAO contaDAO;
 
 	@Override
 	public ResponseEntity<List<Conta>> listarTodas() {
